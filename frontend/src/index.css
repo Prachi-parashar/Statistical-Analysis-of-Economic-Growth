@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800 transition-colors duration-150;
+  }
+  .dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500 rounded;
+  }
+}
+
+@layer components {
+  /* ── Cards ──────────────────────────────── */
+  .stat-card {
+    @apply bg-white rounded-xl border border-slate-200 p-5 shadow-sm
+           hover:shadow-md transition-shadow duration-200;
+  }
+  .dark .stat-card {
+    @apply bg-slate-800 border-slate-700/80;
+  }
+
+  .page-card {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden;
+  }
+  .dark .page-card {
+    @apply bg-slate-800 border-slate-700/80;
+  }
+
+  /* ── Badges ─────────────────────────────── */
+  .badge-sig {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md
+           text-xs font-semibold bg-emerald-50 text-emerald-700
+           border border-emerald-200;
+  }
+  .dark .badge-sig {
+    @apply bg-emerald-950/60 text-emerald-300 border-emerald-800/80;
+  }
+
+  .badge-ns {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md
+           text-xs font-semibold bg-slate-100 text-slate-500
+           border border-slate-200;
+  }
+  .dark .badge-ns {
+    @apply bg-slate-700/60 text-slate-300 border-slate-600;
+  }
+
+  .badge-warn {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md
+           text-xs font-semibold bg-amber-50 text-amber-700
+           border border-amber-200;
+  }
+  .dark .badge-warn {
+    @apply bg-amber-950/60 text-amber-300 border-amber-800/80;
+  }
+
+  .badge-info {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md
+           text-xs font-semibold bg-primary-50 text-primary-700
+           border border-primary-200;
+  }
+  .dark .badge-info {
+    @apply bg-blue-950/60 text-blue-300 border-blue-800/80;
+  }
+
+  /* ── Pill Buttons (variable selectors) ──── */
+  .pill-btn {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .pill-btn-active {
+    @apply bg-primary-600 text-white shadow-sm;
+  }
+  .pill-btn-inactive {
+    @apply bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800;
+  }
+  .dark .pill-btn-inactive {
+    @apply bg-slate-700/70 text-slate-300 hover:bg-slate-600 hover:text-slate-100;
+  }
+
+  /* ── Info banners ────────────────────────── */
+  .banner-pending {
+    @apply flex items-start gap-2.5 p-3 bg-amber-50 border border-amber-200
+           rounded-xl text-xs text-amber-700;
+  }
+  .dark .banner-pending {
+    @apply bg-amber-950/40 border-amber-800/80 text-amber-300;
+  }
+
+  .banner-info {
+    @apply flex items-start gap-2.5 p-3 bg-blue-50 border border-blue-200
+           rounded-xl text-xs text-blue-700;
+  }
+  .dark .banner-info {
+    @apply bg-blue-950/40 border-blue-800/80 text-blue-300;
+  }
+
+  /* ── Section heading inside page-card ───── */
+  .card-header {
+    @apply px-5 py-4 border-b border-slate-100 flex items-center
+           justify-between gap-3;
+  }
+  .dark .card-header {
+    @apply border-slate-700/70;
+  }
+
+  .card-title {
+    @apply text-sm font-semibold text-slate-800;
+  }
+  .dark .card-title {
+    @apply text-slate-100;
+  }
+
+  .card-subtitle {
+    @apply text-xs text-slate-500 mt-0.5;
+  }
+  .dark .card-subtitle {
+    @apply text-slate-400;
+  }
+
+  /* ── Numeric table cells ─────────────────── */
+  .td-num {
+    @apply font-mono text-right tabular-nums;
+  }
+}

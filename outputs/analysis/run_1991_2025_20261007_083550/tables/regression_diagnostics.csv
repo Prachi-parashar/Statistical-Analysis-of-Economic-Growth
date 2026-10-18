@@ -1,0 +1,4 @@
+Test,Statistic,p_value,Passed_5pct,Conclusion
+Durbin-Watson Autocorrelation,1.744,,Yes,No significant autocorrelation (near 2.0)
+Breusch-Pagan Heteroscedasticity,8.687,0.122217,Yes,Homoscedasticity satisfied (Constant Error Variance)
+Shapiro-Wilk Residual Normality,0.9001,0.003988,No,Residuals depart from normal distribution

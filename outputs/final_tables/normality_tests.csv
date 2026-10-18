@@ -1,0 +1,7 @@
+Variable,N,Shapiro_W,Shapiro_p,SW_Evidence,AD_Statistic,AD_CV_5pct,AD_Decision,Skewness,Excess_Kurtosis,Visual_Shape,Overall_Assessment
+GDP_Growth,31,0.7423,0.0,Suggests non-normal,1.9,0.713,Reject H0 at 1% significance,-2.5953,8.746,Strongly skewed,Non-normal — SW rejects and/or shape departs substantially
+Inflation,31,0.9099,0.0129,Suggests non-normal,0.9639,0.713,Reject H0 at 2.5% significance,0.6754,-0.6541,Moderately skewed,Non-normal — SW rejects and/or shape departs substantially
+FDI_Net_Inflows,31,0.9474,0.1319,Does not reject normality,0.4503,0.713,Cannot reject H0 at any standard level,0.7427,0.4995,Moderately skewed,Approximately normal (statistical + visual)
+Exports,31,0.906,0.0102,Suggests non-normal,1.0214,0.713,Reject H0 at 1% significance,-0.3124,-1.2949,Approximately symmetric,Non-normal — SW rejects and/or shape departs substantially
+Gross_Capital_Formation,31,0.9649,0.3911,Does not reject normality,0.3546,0.713,Cannot reject H0 at any standard level,-0.0315,-0.8374,Approximately symmetric,Approximately normal (statistical + visual)
+Unemployment,31,0.4536,0.0,Suggests non-normal,7.4967,0.713,Reject H0 at 1% significance,-2.9856,7.8611,Strongly skewed,Non-normal — SW rejects and/or shape departs substantially

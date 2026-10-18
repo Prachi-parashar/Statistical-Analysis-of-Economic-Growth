@@ -1,0 +1,16 @@
+# GDP_Growth vs Predictors
+Variable_X,Variable_Y,Pearson_r,p_value,n,Significant_0.05,Direction,Strength
+GDP_Growth,Inflation,0.0238,0.8988,31,Not significant,Positive,Weak
+GDP_Growth,FDI_Net_Inflows,-0.2373,0.1986,31,Not significant,Negative,Weak
+GDP_Growth,Exports,0.0819,0.6613,31,Not significant,Positive,Weak
+GDP_Growth,Gross_Capital_Formation,0.2524,0.1707,31,Not significant,Positive,Weak
+GDP_Growth,Unemployment,-0.1765,0.3422,31,Not significant,Negative,Weak
+
+# Full Pearson Correlation Matrix
+,GDP_Growth,Inflation,FDI_Net_Inflows,Exports,Gross_Capital_Formation,Unemployment
+GDP_Growth,1.0,0.0238,-0.2373,0.0819,0.2524,-0.1765
+Inflation,0.0238,1.0,0.0728,0.0259,0.0817,0.13
+FDI_Net_Inflows,-0.2373,0.0728,1.0,0.6971,0.6126,0.0724
+Exports,0.0819,0.0259,0.6971,1.0,0.8123,-0.2801
+Gross_Capital_Formation,0.2524,0.0817,0.6126,0.8123,1.0,-0.0854
+Unemployment,-0.1765,0.13,0.0724,-0.2801,-0.0854,1.0

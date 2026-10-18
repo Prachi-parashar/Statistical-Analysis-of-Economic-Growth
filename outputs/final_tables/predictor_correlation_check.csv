@@ -1,0 +1,11 @@
+Variable_1,Variable_2,Pearson_r,Pearson_p,Spearman_rho,Spearman_p,Abs_Pearson_r,Multicollinearity,Note
+Exports,Gross_Capital_Formation,0.8123,0.0,0.823,0.0,0.8123,FLAG,High correlation — potential multicollinearity; check VIF in regression
+FDI_Net_Inflows,Exports,0.6971,0.0,0.6839,0.0,0.6971,Monitor,Moderate — monitor in regression
+FDI_Net_Inflows,Gross_Capital_Formation,0.6126,0.0002,0.5964,0.0004,0.6126,Monitor,Moderate — monitor in regression
+Exports,Unemployment,-0.2801,0.127,0.1028,0.5819,0.2801,Low,Low concern
+Inflation,Unemployment,0.13,0.4858,0.0817,0.6623,0.13,Low,Low concern
+Gross_Capital_Formation,Unemployment,-0.0854,0.648,-0.0014,0.994,0.0854,Low,Low concern
+Inflation,Gross_Capital_Formation,0.0817,0.6621,0.1024,0.5835,0.0817,Low,Low concern
+Inflation,FDI_Net_Inflows,0.0728,0.6972,0.0569,0.7613,0.0728,Low,Low concern
+FDI_Net_Inflows,Unemployment,0.0724,0.6988,0.1992,0.2826,0.0724,Low,Low concern
+Inflation,Exports,0.0259,0.8901,0.1673,0.3682,0.0259,Low,Low concern

@@ -1,0 +1,7 @@
+Variable,Label,Unit,Count,Mean,Median,Mode,Variance_sample,Std_Dev_sample,Minimum,Maximum,Range,Q1_25th_pct,Q2_Median_50th,Q3_75th_pct,IQR,Skewness,Excess_Kurtosis
+GDP_Growth,GDP Growth,Annual % change,31,6.2437,7.2102,-5.7777,7.9243,2.815,-5.7777,9.6896,15.4673,5.0326,7.2102,7.8924,2.8598,-2.5953,8.746
+Inflation,Inflation (CPI),Annual % change (CPI),31,6.7151,6.3269,3.3282,7.7423,2.7825,3.3282,13.2308,9.9027,4.2717,6.3269,8.9445,4.6727,0.6754,-0.6541
+FDI_Net_Inflows,FDI Net Inflows,% of GDP,31,1.3687,1.4122,0.1971,0.5988,0.7738,0.1971,3.6205,3.4235,0.7654,1.4122,1.8611,1.0957,0.7427,0.4995
+Exports,Exports of Goods & Services,% of GDP,31,17.9231,19.1582,9.8342,26.3375,5.132,9.8342,25.4309,15.5966,12.7778,19.1582,21.877,9.0992,-0.3124,-1.2949
+Gross_Capital_Formation,Gross Capital Formation,% of GDP,31,32.325,32.1158,22.7164,27.5393,5.2478,22.7164,41.9508,19.2344,29.5301,32.1158,36.2624,6.7323,-0.0315,-0.8374
+Unemployment,Unemployment Rate,% of total labour force,31,7.3432,7.609,7.611,0.6737,0.8208,4.172,7.859,3.687,7.566,7.609,7.6345,0.0685,-2.9856,7.8611

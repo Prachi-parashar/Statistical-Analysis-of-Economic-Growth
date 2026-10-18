@@ -1,0 +1,6 @@
+Variable,VIF,Flag,Note
+Inflation,1.0272,Acceptable,VIF<5: low concern
+FDI_Net_Inflows,2.293,Acceptable,VIF<5: low concern
+Exports,4.7284,Acceptable,VIF<5: low concern
+Gross_Capital_Formation,3.1578,Acceptable,VIF<5: low concern
+Unemployment,1.3647,Acceptable,VIF<5: low concern

@@ -1,0 +1,7 @@
+Variable,Label,Unit,Count,Mean,Std_Dev,Minimum,Maximum,Median
+GDP_Growth,GDP Growth,Annual % change,31,6.2437,2.815,-5.7777,9.6896,7.2102
+Inflation,Inflation (CPI),Annual % change (CPI),31,6.7151,2.7825,3.3282,13.2308,6.3269
+FDI_Net_Inflows,FDI Net Inflows,% of GDP,31,1.3687,0.7738,0.1971,3.6205,1.4122
+Exports,Exports of Goods & Services,% of GDP,31,17.9231,5.132,9.8342,25.4309,19.1582
+Gross_Capital_Formation,Gross Capital Formation,% of GDP,31,32.325,5.2478,22.7164,41.9508,32.1158
+Unemployment,Unemployment Rate,% of total labour force,31,7.3432,0.8208,4.172,7.859,7.609

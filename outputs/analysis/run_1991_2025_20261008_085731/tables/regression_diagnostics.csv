@@ -1,0 +1,5 @@
+Test,Statistic,p_value,Passed_5pct,Conclusion,Decision
+Durbin-Watson Autocorrelation,1.744,,Yes,DW = 1.744; no strong evidence of first-order autocorrelation based on the Durbin-Watson statistic.,Passed (No Autocorrelation)
+Breusch-Pagan Heteroscedasticity,8.687,0.122217,Yes,No statistically significant evidence of heteroskedasticity at α = 0.05.,Passed (Homoscedastic)
+Shapiro-Wilk Residual Normality,0.9001,0.003988,No,Evidence of non-normality in residuals at α = 0.05.,Violated (Non-normal Residuals)
+Cook's Distance (Influential Points),0.613,,Caution,"2 influential observations (1991, 2020) exceed 4/n threshold (0.114).",2 Influential Obs. (Threshold 4/n = 0.114)

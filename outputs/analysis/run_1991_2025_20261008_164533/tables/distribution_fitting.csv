@@ -1,0 +1,7 @@
+Variable,Shapiro_Wilk_Stat,Shapiro_Wilk_p,SW_Normal_5pct,Anderson_Darling_Stat,AD_Critical_5pct,AD_Normal_5pct,Skewness,Skew_Type,Kurtosis,Kurtosis_Type,Is_Normal_SW,Is_Normal_AD,Recommendation
+GDP_Growth,0.773501,6e-06,No,1.970453,0.719,No,-2.489686,Negatively Skewed (Left-tailed),8.84773,Leptokurtic (Heavy-tailed/Peaked),False,False,Evidence of non-normality (α = 0.05)
+Inflation,0.919605,0.013888,No,1.039704,0.719,No,0.687864,Positively Skewed (Right-tailed),-0.602088,Platykurtic (Light-tailed/Flat),False,False,Evidence of non-normality (α = 0.05)
+FDI_Net_Inflows,0.954468,0.155373,Yes,0.436714,0.719,Yes,0.748667,Positively Skewed (Right-tailed),0.738908,Leptokurtic (Heavy-tailed/Peaked),True,True,No evidence against normality (α = 0.05)
+Exports,0.903419,0.004892,No,1.26821,0.719,No,-0.359722,Symmetric,-1.352161,Platykurtic (Light-tailed/Flat),False,False,Evidence of non-normality (α = 0.05)
+Gross_Capital_Formation,0.969111,0.419292,Yes,0.3246,0.719,Yes,0.000998,Symmetric,-0.79941,Platykurtic (Light-tailed/Flat),True,True,No evidence against normality (α = 0.05)
+Unemployment,0.502401,0.0,No,8.209478,0.719,No,-2.304026,Negatively Skewed (Left-tailed),3.907742,Leptokurtic (Heavy-tailed/Peaked),False,False,Evidence of non-normality (α = 0.05)

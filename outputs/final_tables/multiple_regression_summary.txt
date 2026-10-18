@@ -1,0 +1,36 @@
+MULTIPLE OLS REGRESSION SUMMARY
+Project: Statistical Analysis of Economic Growth and Its Determinants in India
+Period: 1993-2023  |  n=31
+=================================================================
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             GDP_Growth   R-squared:                       0.318
+Model:                            OLS   Adj. R-squared:                  0.182
+Method:                 Least Squares   F-statistic:                     2.331
+Date:                Wed, 30 Sep 2026   Prob (F-statistic):             0.0722
+Time:                        00:29:58   Log-Likelihood:                -69.632
+No. Observations:                  31   AIC:                             151.3
+Df Residuals:                      25   BIC:                             159.9
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+===========================================================================================
+                              coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------------
+const                       0.8724      5.882      0.148      0.883     -11.241      12.986
+Inflation                   0.0279      0.169      0.165      0.871      -0.321       0.377
+FDI_Net_Inflows            -2.1142      0.910     -2.324      0.029      -3.988      -0.240
+Exports                    -0.0452      0.197     -0.230      0.820      -0.451       0.360
+Gross_Capital_Formation     0.3563      0.157      2.263      0.033       0.032       0.681
+Unemployment               -0.3581      0.662     -0.541      0.593      -1.721       1.005
+==============================================================================
+Omnibus:                       16.797   Durbin-Watson:                   1.855
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               26.512
+Skew:                          -1.203   Prob(JB):                     1.75e-06
+Kurtosis:                       6.839   Cond. No.                         503.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+NOTE: Observational annual time-series. No causal claims warranted.

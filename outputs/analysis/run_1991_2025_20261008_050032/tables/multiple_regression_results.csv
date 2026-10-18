@@ -1,0 +1,7 @@
+Variable,Coefficient,Std_Error,t_statistic,p_value,CI_Lower_95,CI_Upper_95,Significant_5pct,is_significant
+const,-1.468261,5.195162,-0.282621,0.779475,-12.09356,9.157039,No,False
+Inflation,-0.111795,0.150015,-0.745225,0.462133,-0.418611,0.195021,No,False
+FDI_Net_Inflows,-1.86289,0.907512,-2.052744,0.049218,-3.718961,-0.006819,Yes,True
+Exports,0.009283,0.194612,0.0477,0.962282,-0.388744,0.40731,No,False
+Gross_Capital_Formation,0.336227,0.156632,2.146606,0.040321,0.015879,0.656575,Yes,True
+Unemployment,-0.031613,0.538356,-0.058721,0.953577,-1.132675,1.069449,No,False

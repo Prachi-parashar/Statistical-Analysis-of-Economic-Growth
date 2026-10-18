@@ -1,0 +1,6 @@
+Variable,VIF,Multicollinear_Warn,Severe_Warn,Status
+Inflation,1.124532,False,False,Low Multicollinearity (VIF <= 5)
+FDI_Net_Inflows,2.686561,False,False,Low Multicollinearity (VIF <= 5)
+Exports,5.698907,True,False,Moderate Multicollinearity (VIF > 5)
+Gross_Capital_Formation,3.378537,False,False,Low Multicollinearity (VIF <= 5)
+Unemployment,1.714524,False,False,Low Multicollinearity (VIF <= 5)

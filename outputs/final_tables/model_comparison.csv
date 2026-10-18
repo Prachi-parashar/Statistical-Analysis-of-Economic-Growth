@@ -1,0 +1,7 @@
+Model,Type,R2,Adj_R2,F_statistic,F_p_value,AIC,BIC,n,k
+Simple: GDP ~ Inflation,Simple OLS,0.0006,-0.0339,0.0165,0.8988,155.1079,157.9759,31,1
+Simple: GDP ~ FDI_Net_Inflows,Simple OLS,0.0563,0.0238,1.7306,0.1986,153.3286,156.1966,31,1
+Simple: GDP ~ Exports,Simple OLS,0.0067,-0.0275,0.196,0.6613,154.9167,157.7847,31,1
+Simple: GDP ~ Gross_Capital_Formation,Simple OLS,0.0637,0.0314,1.974,0.1707,153.0841,155.9521,31,1
+Simple: GDP ~ Unemployment,Simple OLS,0.0312,-0.0023,0.9326,0.3422,154.1442,157.0122,31,1
+Multiple OLS (5 predictors),Multiple OLS,0.318,0.1815,2.3309,0.0722,151.2631,159.867,31,5

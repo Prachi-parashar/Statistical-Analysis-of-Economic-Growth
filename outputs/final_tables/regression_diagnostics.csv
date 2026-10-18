@@ -1,0 +1,6 @@
+Test,Statistic,p_value,Decision,Notes
+Durbin-Watson,1.8551,,≈ No autocorrelation,Values near 2 indicate no first-order autocorrelation
+Breusch-Pagan (heteroskedasticity),8.5,0.1307,No significant heteroskedasticity,LM test for constant error variance
+Jarque-Bera (residual normality),26.5122,0.0,Non-normal residuals,Tests skewness and kurtosis jointly
+Shapiro-Wilk (residual normality),0.9009,0.0076,Non-normal residuals,Preferred for small samples (n<50)
+Cook's Distance influential obs,0.6286,,"2 influential point(s): [2020, 2023]",Threshold=4/n=0.1290; influential points NOT removed

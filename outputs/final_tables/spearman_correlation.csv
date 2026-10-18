@@ -1,0 +1,16 @@
+# GDP_Growth vs Predictors
+Variable_X,Variable_Y,Spearman_rho,p_value,n,Significant_0.05,Direction,Strength
+GDP_Growth,Inflation,-0.0185,0.9211,31,Not significant,Negative,Weak
+GDP_Growth,FDI_Net_Inflows,0.0089,0.9622,31,Not significant,Positive,Weak
+GDP_Growth,Exports,0.156,0.4019,31,Not significant,Positive,Weak
+GDP_Growth,Gross_Capital_Formation,0.3819,0.034,31,Significant,Positive,Moderate
+GDP_Growth,Unemployment,-0.3323,0.0678,31,Not significant,Negative,Moderate
+
+# Full Spearman Correlation Matrix
+,GDP_Growth,Inflation,FDI_Net_Inflows,Exports,Gross_Capital_Formation,Unemployment
+GDP_Growth,1.0,-0.0185,0.0089,0.156,0.3819,-0.3323
+Inflation,-0.0185,1.0,0.0569,0.1673,0.1024,0.0817
+FDI_Net_Inflows,0.0089,0.0569,1.0,0.6839,0.5964,0.1992
+Exports,0.156,0.1673,0.6839,1.0,0.823,0.1028
+Gross_Capital_Formation,0.3819,0.1024,0.5964,0.823,1.0,-0.0014
+Unemployment,-0.3323,0.0817,0.1992,0.1028,-0.0014,1.0

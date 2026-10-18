@@ -1,0 +1,5 @@
+Test,Statistic,p_value,Passed_5pct,Conclusion,Decision
+Durbin-Watson Autocorrelation,1.744,,No strong evidence,"DW = 1.744; the statistic is reasonably close to 2.0, suggesting no strong evidence of first-order autocorrelation.",No strong evidence
+Breusch-Pagan Heteroscedasticity,8.687,0.122217,Fail to reject H₀,No statistically significant evidence of heteroskedasticity at α = 0.05.,Fail to reject H₀
+Shapiro-Wilk Residual Normality,0.9001,0.003988,Reject H₀,Evidence of non-normality in residuals at α = 0.05.,Reject H₀
+Cook's Distance (Influential Points),0.613,,2 Exceeding Obs.,"2 observation(s) (1991, 2020) exceed the Cook's D screening threshold (4/n ≈ 0.114). These observations should be examined for influence and contextual validity; exceeding the screening threshold does not by itself imply that the observations are erroneous or should be removed.",2 Exceeding Obs. (Screening Threshold 4/n = 0.114)
