@@ -93,7 +93,9 @@ def get_metadata() -> Dict[str, Any]:
     return {"available": True, "data": data}
 
 def get_generic_table(filename: str) -> Dict[str, Any]:
-    file_path = settings.TABLES_DIR / filename
+    file_path = settings.WRITABLE_TABLES_DIR / filename
+    if not file_path.exists():
+        file_path = settings.TABLES_DIR / filename
     success, reason, data = read_csv_safe(file_path)
     if not success:
         return {"available": False, "reason": reason}
@@ -104,12 +106,17 @@ def get_figures_list() -> Dict[str, Any]:
     current_run = analysis_pipeline_service.get_current_analysis_run()
     
     categories = {}
-    if settings.FIGURES_DIR.exists():
-        for subdir in settings.FIGURES_DIR.iterdir():
-            if subdir.is_dir():
-                png_files = [f.name for f in subdir.glob("*.png")]
-                if png_files:
-                    categories[subdir.name] = png_files
+    for d in [settings.FIGURES_DIR, settings.WRITABLE_FIGURES_DIR]:
+        if d.exists():
+            for subdir in d.iterdir():
+                if subdir.is_dir():
+                    png_files = [f.name for f in subdir.glob("*.png")]
+                    if png_files:
+                        if subdir.name not in categories:
+                            categories[subdir.name] = []
+                        for f_name in png_files:
+                            if f_name not in categories[subdir.name]:
+                                categories[subdir.name].append(f_name)
                     
     if not categories and current_run.get("success"):
         fig_items = current_run.get("figures", [])
@@ -118,7 +125,8 @@ def get_figures_list() -> Dict[str, Any]:
             fname = item.get("filename")
             if cat not in categories:
                 categories[cat] = []
-            categories[cat].append(fname)
+            if fname not in categories[cat]:
+                categories[cat].append(fname)
 
     return {
         "available": len(categories) > 0,
@@ -130,8 +138,13 @@ def get_report_info() -> Dict[str, Any]:
     from app.services import analysis_pipeline_service
     current_run = analysis_pipeline_service.get_current_analysis_run()
     
-    pdf_path = settings.OUTPUTS_DIR / "final_report.pdf"
-    md_path = settings.OUTPUTS_DIR / "final_report.md"
+    pdf_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.pdf"
+    if not pdf_path.exists():
+        pdf_path = settings.OUTPUTS_DIR / "final_report.pdf"
+        
+    md_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.md"
+    if not md_path.exists():
+        md_path = settings.OUTPUTS_DIR / "final_report.md"
     
     available = current_run.get("success", False) or pdf_path.exists() or md_path.exists()
     return {

@@ -1,0 +1,7 @@
+Model,Predictor,Type,R_Squared,Adj_R_Squared,F_Statistic,p_value,AIC,BIC,Significant
+GDP_Growth ~ Inflation,Inflation,Simple OLS,0.019945,-0.009753,0.671591,0.418377,173.7747,176.8854,No
+GDP_Growth ~ FDI_Net_Inflows,FDI_Net_Inflows,Simple OLS,0.013968,-0.015912,0.467458,0.498932,173.9875,177.0982,No
+GDP_Growth ~ Exports,Exports,Simple OLS,0.037264,0.00809,1.277319,0.266546,173.1507,176.2614,No
+GDP_Growth ~ Gross_Capital_Formation,Gross_Capital_Formation,Simple OLS,0.10113,0.073891,3.712743,0.062646,170.7483,173.859,No
+GDP_Growth ~ Unemployment,Unemployment,Simple OLS,0.043911,0.014939,1.515617,0.226986,172.9082,176.0189,No
+Multiple OLS (5 predictors),All 5 Predictors,Multiple OLS,0.283995,0.160545,2.300498,0.070678,170.7875,180.1196,No

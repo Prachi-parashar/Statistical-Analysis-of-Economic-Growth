@@ -197,7 +197,9 @@ async def get_figures():
 @router.get("/figures/{path:path}", tags=["Figures"])
 async def serve_figure(path: str):
     """Serve a specific PNG."""
-    file_path = settings.FIGURES_DIR / path
+    file_path = settings.WRITABLE_FIGURES_DIR / path
+    if not file_path.exists() or not file_path.is_file():
+        file_path = settings.FIGURES_DIR / path
     if not file_path.exists() or not file_path.is_file():
         raise HTTPException(status_code=404, detail="Figure not found")
     return FileResponse(file_path)
@@ -210,7 +212,9 @@ async def report_info():
 @router.get("/report/pdf", tags=["Report"])
 async def serve_report_pdf():
     """Download final PDF."""
-    file_path = settings.OUTPUTS_DIR / "final_report.pdf"
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.pdf"
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "final_report.pdf"
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="PDF Report not found")
     headers = {
@@ -228,7 +232,9 @@ async def serve_report_pdf():
 @router.get("/report/md", tags=["Report"])
 async def serve_report_md():
     """Download final Markdown."""
-    file_path = settings.OUTPUTS_DIR / "final_report.md"
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.md"
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "final_report.md"
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Markdown Report not found")
     headers = {
@@ -251,7 +257,9 @@ async def get_table_json(filename: str):
 @router.get("/tables/{filename}", tags=["Tables"])
 async def serve_table(filename: str):
     """Download a specific CSV/TXT table."""
-    file_path = settings.TABLES_DIR / filename
+    file_path = settings.WRITABLE_TABLES_DIR / filename
+    if not file_path.exists() or not file_path.is_file():
+        file_path = settings.TABLES_DIR / filename
     if not file_path.exists() or not file_path.is_file():
         raise HTTPException(status_code=404, detail="Table not found")
     return FileResponse(file_path)
@@ -259,7 +267,11 @@ async def serve_table(filename: str):
 @router.get("/analysis/{analysis_id}/report/pdf", tags=["Analysis"])
 async def serve_analysis_report_pdf(analysis_id: str):
     """Download analysis-specific PDF report."""
-    file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.pdf"
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.pdf"
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.pdf"
+    if not file_path.exists():
+        file_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.pdf"
     if not file_path.exists():
         file_path = settings.OUTPUTS_DIR / "final_report.pdf"
     if not file_path.exists():
@@ -279,7 +291,11 @@ async def serve_analysis_report_pdf(analysis_id: str):
 @router.get("/analysis/{analysis_id}/report/md", tags=["Analysis"])
 async def serve_analysis_report_md(analysis_id: str):
     """Download analysis-specific Markdown report."""
-    file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.md"
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.md"
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "reports" / "final_report.md"
+    if not file_path.exists():
+        file_path = settings.WRITABLE_OUTPUTS_DIR / "final_report.md"
     if not file_path.exists():
         file_path = settings.OUTPUTS_DIR / "final_report.md"
     if not file_path.exists():
@@ -299,7 +315,11 @@ async def serve_analysis_report_md(analysis_id: str):
 @router.get("/analysis/{analysis_id}/tables/{filename}", tags=["Analysis"])
 async def serve_analysis_table(analysis_id: str, filename: str):
     """Download analysis-specific CSV table."""
-    file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "tables" / filename
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "analysis" / analysis_id / "tables" / filename
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "tables" / filename
+    if not file_path.exists():
+        file_path = settings.WRITABLE_TABLES_DIR / filename
     if not file_path.exists():
         file_path = settings.TABLES_DIR / filename
     if not file_path.exists():
@@ -309,7 +329,11 @@ async def serve_analysis_table(analysis_id: str, filename: str):
 @router.get("/analysis/{analysis_id}/figures/{path:path}", tags=["Analysis"])
 async def serve_analysis_figure(analysis_id: str, path: str):
     """Serve analysis-specific PNG figure."""
-    file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "figures" / path
+    file_path = settings.WRITABLE_OUTPUTS_DIR / "analysis" / analysis_id / "figures" / path
+    if not file_path.exists():
+        file_path = settings.OUTPUTS_DIR / "analysis" / analysis_id / "figures" / path
+    if not file_path.exists():
+        file_path = settings.WRITABLE_FIGURES_DIR / path
     if not file_path.exists():
         file_path = settings.FIGURES_DIR / path
     if not file_path.exists():

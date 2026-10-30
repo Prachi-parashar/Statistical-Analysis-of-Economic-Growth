@@ -1,4 +1,12 @@
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '')
+// In production on Vercel, the frontend and FastAPI backend share the same domain via rewrites (/api/*).
+// An empty BASE_URL uses relative paths (e.g. /api/dataset).
+// In local development, it defaults to http://127.0.0.1:8000.
+// If VITE_API_BASE_URL is explicitly configured, it takes precedence.
+const BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL !== undefined
+    ? import.meta.env.VITE_API_BASE_URL
+    : (import.meta.env.MODE === 'production' ? '' : 'http://127.0.0.1:8000')
+).replace(/\/+$/, '')
 
 /**
  * Generic fetch wrapper for backend API calls

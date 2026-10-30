@@ -15,6 +15,7 @@ numpy>=1.26.0
 # Statistical Analysis & Econometrics
 scipy>=1.13.0
 statsmodels>=0.14.0
+scikit-learn>=1.4.0
 
 # Visualization & Plot Generation
 matplotlib>=3.8.0

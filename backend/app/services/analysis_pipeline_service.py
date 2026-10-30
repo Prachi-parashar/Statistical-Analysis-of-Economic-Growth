@@ -45,18 +45,22 @@ def run_analysis_pipeline(force_refresh: bool = True) -> Dict[str, Any]:
                     data_service.set_cached_dataset_response(_CURRENT_ANALYSIS_RUN["calc_results"]["dataset"])
                 return _CURRENT_ANALYSIS_RUN
 
-            current_manifest_file = settings.OUTPUTS_DIR / "current_analysis.json"
-            if current_manifest_file.exists():
-                try:
-                    with open(current_manifest_file, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                        if data.get("success"):
-                            _CURRENT_ANALYSIS_RUN = data
-                            if "calc_results" in data and "dataset" in data["calc_results"]:
-                                data_service.set_cached_dataset_response(data["calc_results"]["dataset"])
-                            return data
-                except Exception:
-                    pass
+            manifest_candidates = [
+                settings.WRITABLE_OUTPUTS_DIR / "current_analysis.json",
+                settings.OUTPUTS_DIR / "current_analysis.json",
+            ]
+            for current_manifest_file in manifest_candidates:
+                if current_manifest_file.exists():
+                    try:
+                        with open(current_manifest_file, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            if data.get("success"):
+                                _CURRENT_ANALYSIS_RUN = data
+                                if "calc_results" in data and "dataset" in data["calc_results"]:
+                                    data_service.set_cached_dataset_response(data["calc_results"]["dataset"])
+                                return data
+                    except Exception:
+                        pass
         return _execute_pipeline_locked(force_refresh=force_refresh)
 
 def _execute_pipeline_locked(force_refresh: bool = True) -> Dict[str, Any]:
@@ -150,7 +154,8 @@ def _execute_pipeline_locked(force_refresh: bool = True) -> Dict[str, Any]:
         now_str = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d_%H%M%S")
         analysis_id = f"run_{metadata['start_year']}_{metadata['end_year']}_{now_str}"
 
-        analysis_dir = settings.OUTPUTS_DIR / "analysis" / analysis_id
+        base_outputs_dir = settings.WRITABLE_OUTPUTS_DIR
+        analysis_dir = base_outputs_dir / "analysis" / analysis_id
         dataset_dir = analysis_dir / "dataset"
         tables_dir = analysis_dir / "tables"
         figures_dir = analysis_dir / "figures"
@@ -185,26 +190,35 @@ def _execute_pipeline_locked(force_refresh: bool = True) -> Dict[str, Any]:
         pd.DataFrame(diag_res.get("summary_diagnostics", [])).to_csv(tables_dir / "regression_diagnostics.csv", index=False)
         pd.DataFrame(reg_res.get("model_comparison", [])).to_csv(tables_dir / "model_comparison.csv", index=False)
 
-        # Mirror tables to global tables directory
-        settings.TABLES_DIR.mkdir(parents=True, exist_ok=True)
+        # Mirror tables to writable & global tables directory
+        settings.WRITABLE_TABLES_DIR.mkdir(parents=True, exist_ok=True)
         for t_file in tables_dir.glob("*.csv"):
-            with open(t_file, "r", encoding="utf-8") as rf:
-                with open(settings.TABLES_DIR / t_file.name, "w", encoding="utf-8") as wf:
-                    wf.write(rf.read())
+            content = t_file.read_text(encoding="utf-8")
+            (settings.WRITABLE_TABLES_DIR / t_file.name).write_text(content, encoding="utf-8")
+            try:
+                settings.TABLES_DIR.mkdir(parents=True, exist_ok=True)
+                (settings.TABLES_DIR / t_file.name).write_text(content, encoding="utf-8")
+            except (OSError, PermissionError):
+                pass
 
         # Step 5: Generate Figures
         generated_figures = figure_generator.generate_all_figures(df, calc_results, figures_dir)
         
-        # Mirror figures to global figures directory
-        settings.FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+        # Mirror figures to writable & global figures directory
+        settings.WRITABLE_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
         for fig_item in generated_figures:
             src_p = figures_dir / fig_item["path"]
-            dst_p = settings.FIGURES_DIR / fig_item["path"]
-            dst_p.parent.mkdir(parents=True, exist_ok=True)
             if src_p.exists():
-                with open(src_p, "rb") as rf:
-                    with open(dst_p, "wb") as wf:
-                        wf.write(rf.read())
+                fig_bytes = src_p.read_bytes()
+                w_dst_p = settings.WRITABLE_FIGURES_DIR / fig_item["path"]
+                w_dst_p.parent.mkdir(parents=True, exist_ok=True)
+                w_dst_p.write_bytes(fig_bytes)
+                try:
+                    dst_p = settings.FIGURES_DIR / fig_item["path"]
+                    dst_p.parent.mkdir(parents=True, exist_ok=True)
+                    dst_p.write_bytes(fig_bytes)
+                except (OSError, PermissionError):
+                    pass
 
         # Step 6: Generate Markdown & PDF Reports from THIS exact run
         output_md_path = reports_dir / "final_report.md"
@@ -213,14 +227,22 @@ def _execute_pipeline_locked(force_refresh: bool = True) -> Dict[str, Any]:
         report_generator.generate_markdown_report(calc_results, output_md_path)
         report_generator.generate_pdf_report(calc_results, output_pdf_path, metadata, figures_dir=figures_dir)
 
-        # Mirror reports to root outputs folder
-        with open(output_md_path, "r", encoding="utf-8") as rf:
-            with open(settings.OUTPUTS_DIR / "final_report.md", "w", encoding="utf-8") as wf:
-                wf.write(rf.read())
+        # Mirror reports to writable outputs folder & root outputs folder
+        if output_md_path.exists():
+            md_text = output_md_path.read_text(encoding="utf-8")
+            (settings.WRITABLE_OUTPUTS_DIR / "final_report.md").write_text(md_text, encoding="utf-8")
+            try:
+                (settings.OUTPUTS_DIR / "final_report.md").write_text(md_text, encoding="utf-8")
+            except (OSError, PermissionError):
+                pass
 
-        with open(output_pdf_path, "rb") as rf:
-            with open(settings.OUTPUTS_DIR / "final_report.pdf", "wb") as wf:
-                wf.write(rf.read())
+        if output_pdf_path.exists():
+            pdf_bytes = output_pdf_path.read_bytes()
+            (settings.WRITABLE_OUTPUTS_DIR / "final_report.pdf").write_bytes(pdf_bytes)
+            try:
+                (settings.OUTPUTS_DIR / "final_report.pdf").write_bytes(pdf_bytes)
+            except (OSError, PermissionError):
+                pass
 
         # Build list of table files for response
         table_files_list = [f.name for f in tables_dir.glob("*.csv")]
@@ -251,8 +273,12 @@ def _execute_pipeline_locked(force_refresh: bool = True) -> Dict[str, Any]:
         with open(analysis_dir / "manifest.json", "w", encoding="utf-8") as f:
             json.dump(run_manifest, f, indent=2, default=str)
 
-        with open(settings.OUTPUTS_DIR / "current_analysis.json", "w", encoding="utf-8") as f:
-            json.dump(run_manifest, f, indent=2, default=str)
+        manifest_json_str = json.dumps(run_manifest, indent=2, default=str)
+        (settings.WRITABLE_OUTPUTS_DIR / "current_analysis.json").write_text(manifest_json_str, encoding="utf-8")
+        try:
+            (settings.OUTPUTS_DIR / "current_analysis.json").write_text(manifest_json_str, encoding="utf-8")
+        except (OSError, PermissionError):
+            pass
 
         _CURRENT_ANALYSIS_RUN = run_manifest
         return run_manifest
@@ -275,18 +301,22 @@ def get_current_analysis_run() -> Dict[str, Any]:
         if _CURRENT_ANALYSIS_RUN is not None and _CURRENT_ANALYSIS_RUN.get("success"):
             return _CURRENT_ANALYSIS_RUN
 
-        current_manifest_file = settings.OUTPUTS_DIR / "current_analysis.json"
-        if current_manifest_file.exists():
-            try:
-                with open(current_manifest_file, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if data.get("success"):
-                        _CURRENT_ANALYSIS_RUN = data
-                        if "calc_results" in data and "dataset" in data["calc_results"]:
-                            data_service.set_cached_dataset_response(data["calc_results"]["dataset"])
-                        return data
-            except Exception:
-                pass
+        manifest_candidates = [
+            settings.WRITABLE_OUTPUTS_DIR / "current_analysis.json",
+            settings.OUTPUTS_DIR / "current_analysis.json",
+        ]
+        for current_manifest_file in manifest_candidates:
+            if current_manifest_file.exists():
+                try:
+                    with open(current_manifest_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        if data.get("success"):
+                            _CURRENT_ANALYSIS_RUN = data
+                            if "calc_results" in data and "dataset" in data["calc_results"]:
+                                data_service.set_cached_dataset_response(data["calc_results"]["dataset"])
+                            return data
+                except Exception:
+                    pass
                 
         # Auto-run pipeline if no active analysis run exists yet
         return run_analysis_pipeline(force_refresh=False)

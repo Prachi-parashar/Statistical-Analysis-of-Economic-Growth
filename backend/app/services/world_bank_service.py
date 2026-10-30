@@ -54,33 +54,46 @@ def fetch_world_bank_data(start_year: int = DEFAULT_START_YEAR, end_year: Option
     """
     Fetch real macroeconomic data for India directly from World Bank API.
     Determines the latest available common year dynamically without hardcoding.
+    Falls back gracefully to baseline verified local dataset if network request fails.
     Returns clean pandas DataFrame and metadata dictionary.
     """
-    with ThreadPoolExecutor(max_workers=len(INDICATORS)) as executor:
-        futures = [
-            executor.submit(fetch_indicator_data, name, code, start_year, end_year)
-            for name, code in INDICATORS.items()
-        ]
-        results = [f.result() for f in futures]
-        
-    data_by_year: Dict[int, Dict[str, Optional[float]]] = {}
-    for name, records in results:
-        for yr, val in records.items():
-            if yr not in data_by_year:
-                data_by_year[yr] = {}
-            data_by_year[yr][name] = val
-            
-    if not data_by_year:
-        raise RuntimeError("Failed to extract any observations from World Bank API responses.")
-        
-    df = pd.DataFrame.from_dict(data_by_year, orient="index").sort_index()
-    df.index.name = "Year"
-    df = df.reset_index()
-    
     cols = ["Year", "GDP_Growth", "Inflation", "FDI_Net_Inflows", "Exports", "Gross_Capital_Formation", "Unemployment"]
-    df = df.reindex(columns=cols)
-    df = df[df["Year"] >= start_year].copy()
-    
+    try:
+        with ThreadPoolExecutor(max_workers=len(INDICATORS)) as executor:
+            futures = [
+                executor.submit(fetch_indicator_data, name, code, start_year, end_year)
+                for name, code in INDICATORS.items()
+            ]
+            results = [f.result() for f in futures]
+            
+        data_by_year: Dict[int, Dict[str, Optional[float]]] = {}
+        for name, records in results:
+            for yr, val in records.items():
+                if yr not in data_by_year:
+                    data_by_year[yr] = {}
+                data_by_year[yr][name] = val
+                
+        if not data_by_year:
+            raise RuntimeError("Failed to extract any observations from World Bank API responses.")
+            
+        df = pd.DataFrame.from_dict(data_by_year, orient="index").sort_index()
+        df.index.name = "Year"
+        df = df.reset_index()
+        df = df.reindex(columns=cols)
+        df = df[df["Year"] >= start_year].copy()
+        source_label = "World Bank World Development Indicators (WDI)"
+    except Exception as exc:
+        from app.config import settings
+        local_csv = settings.DATA_DIR / "cleaned" / "india_economic_growth_determinants_clean.csv"
+        if local_csv.exists():
+            print(f"Notice: World Bank API live fetch failed ({exc}); using verified local dataset snapshot.")
+            df = pd.read_csv(local_csv)
+            df = df.reindex(columns=cols)
+            df = df[df["Year"] >= start_year].copy()
+            source_label = "World Bank World Development Indicators (WDI) [Local Verified Snapshot]"
+        else:
+            raise RuntimeError(f"World Bank API fetch failed and local dataset snapshot not found: {exc}") from exc
+        
     actual_start_year = int(df["Year"].min()) if not df.empty else start_year
     actual_end_year = int(df["Year"].max()) if not df.empty else start_year
     
@@ -88,7 +101,7 @@ def fetch_world_bank_data(start_year: int = DEFAULT_START_YEAR, end_year: Option
     d_hash = compute_dataset_hash(df)
     
     metadata = {
-        "source": "World Bank World Development Indicators (WDI)",
+        "source": source_label,
         "country": COUNTRY_NAME,
         "country_code": COUNTRY_CODE,
         "start_year": actual_start_year,

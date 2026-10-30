@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Statistical Analysis of Economic Growth and Its Determinants in India
 
 An econometric and statistical analysis web platform examining India's annual GDP growth (1991–2025) and its macroeconomic determinants using formal statistical inference, interactive visualizations, and automated dynamic PDF report generation.
@@ -211,6 +210,3 @@ To run the automated validation test suite:
 
 ## License & Citation
 Academic Research & Demonstration Project. Data sourced from World Bank Open Data.
-=======
-# Statical-Analysis-of-Economic-growth
->>>>>>> 203d8271f6bf807c6ea79f67701e6ce7692eea6b

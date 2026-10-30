@@ -1,0 +1,8 @@
+Column_Name,Variable_Definition,Unit,Source,Source_URL,WB_Indicator_Code,Data_Period,Notes
+Year,Calendar year of observation,Year (YYYY),World Bank WDI,https://databank.worldbank.org/source/world-development-indicators,N/A,1991–2023,Index variable; all series aligned to calendar year
+GDP_Growth,Annual percentage growth rate of GDP at market prices based on constant local currency,Annual % change,World Bank WDI,https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=IN,NY.GDP.MKTP.KD.ZG,1991–2023,Dependent variable
+Inflation,Inflation as measured by the consumer price index (CPI); annual % change,Annual % change,World Bank WDI,https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=IN,FP.CPI.TOTL.ZG,1991–2023,Independent variable
+FDI_Net_Inflows,Foreign direct investment net inflows as a share of GDP,% of GDP,World Bank WDI,https://data.worldbank.org/indicator/BX.KLT.DINV.WD.GD.ZS?locations=IN,BX.KLT.DINV.WD.GD.ZS,1991–2023,Independent variable
+Exports,Exports of goods and services as a share of GDP,% of GDP,World Bank WDI,https://data.worldbank.org/indicator/NE.EXP.GNFS.ZS?locations=IN,NE.EXP.GNFS.ZS,1991–2023,Independent variable
+Gross_Capital_Formation,Gross capital formation (formerly gross domestic investment) as a share of GDP,% of GDP,World Bank WDI,https://data.worldbank.org/indicator/NE.GDI.TOTL.ZS?locations=IN,NE.GDI.TOTL.ZS,1991–2023,Independent variable
+Unemployment,"Unemployment as % of total labour force (national estimate, ILO modelled)",% of total labour force,World Bank WDI,https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=IN,SL.UEM.TOTL.ZS,1991–2023,Independent variable; ILO modelled estimates used where survey data gaps exist
